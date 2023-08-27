@@ -1,0 +1,528 @@
+<div class="section-padding show-employees">
+  <div class="container">
+    <div
+      class="employees-table text-center overflow-hidden rounded-3 mt-5 bg-white"
+    >
+      <div
+        class="employee-header p-2 bg-light d-flex flex-wrap justify-content-center justify-content-lg-between align-items-center gap-3"
+      >
+        <h3>Employees</h3>
+      </div>
+      <div class="px-2 py-3 table-responsive">
+        <div class="d-flex align-items-start justify-content-start gap-2 mb-2">
+          <p>Show</p>
+          <select class="p-1 rounded-2" [(ngModel)]="itemsPerPage">
+            <option selected value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+          </select>
+        </div>
+        <table
+          data-aos="zoom-in"
+          data-aos-duration="1000"
+          class="table table-hover table-bordered"
+        >
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">Serial</th>
+              <th scope="col">Name</th>
+              <th scope="col">Birth Date</th>
+              <th scope="col">Gender</th>
+              <th scope="col">Email</th>
+              <th scope="col">Phone</th>
+              <th scope="col">Address</th>
+              <th scope="col">Active</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            <tr
+              *ngFor="
+                let employee of employees
+                  | paginate : { itemsPerPage: itemsPerPage, currentPage: p }
+              "
+            >
+              <th scope="row">{{ employee.id }}</th>
+              <td>{{ employee.fName + " " + employee.lName }}</td>
+              <td>{{ employee.birthDate | date }}</td>
+              <td>{{ employee.gender == 1 ? "Male" : "Female" }}</td>
+
+              <td>{{ employee.email }}</td>
+              <td>{{ employee.phone }}</td>
+              <td>
+                {{ employee.address }}
+                <br />
+                {{ employee.city }}
+                <br />
+                {{ employee.country }}
+                <br />
+                {{ employee.postal }}
+              </td>
+              <td>
+                <label class="button-available" for="{{ employee.id }}">
+                  <input
+                    id="{{ employee.id }}"
+                    [checked]="employee.active"
+                    type="checkbox"
+                    disabled
+                  />
+                  <span class="slider"></span>
+                </label>
+              </td>
+              <td>
+                <a class="edit-btn" (click)="updateEmp(editModal, employee.id)"
+                  ><i class="fa-solid fa-pen-to-square"></i
+                ></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="d-flex justify-content-center align-items-center mt-3">
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #editModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Edit Employee</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="d('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="editForm" (submit)="submitForm($event)">
+      <div class="row align-items-start justify-content-center gy-5">
+        <div class="col-md-6">
+          <div class="inputGroup w-100">
+            <input
+              type="text"
+              id="fName"
+              placeholder="Enter First Name"
+              name="fName"
+              formControlName="fName"
+              autocomplete="off"
+            />
+            <label for="fName">First Name</label>
+            <ng-container
+              *ngIf="
+                editForm.get('fName')?.invalid && editForm.get('fName')?.touched
+              "
+            >
+              <div
+                *ngIf="editForm.get('fName')?.errors?.['required']"
+                class="form-text text-danger"
+              >
+                First Name is required
+              </div>
+              <div
+                *ngIf="editForm.get('fName')?.errors?.['pattern']"
+                class="form-text text-danger"
+              >
+                First Name Must Be Between 3 to 10 Characters
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="inputGroup w-100">
+            <input
+              type="text"
+              placeholder="Enter First Name"
+              id="lName"
+              name="lName"
+              formControlName="lName"
+              autocomplete="off"
+            />
+            <label for="lName">Last Name</label>
+            <ng-container
+              *ngIf="
+                editForm.get('lName')?.invalid && editForm.get('lName')?.touched
+              "
+            >
+              <div
+                *ngIf="editForm.get('lName')?.errors?.['required']"
+                class="form-text text-danger"
+              >
+                Last Name is required
+              </div>
+              <div
+                *ngIf="editForm.get('lName')?.errors?.['pattern']"
+                class="form-text text-danger"
+              >
+                Last Name Must Be Between 3 to 10 Characters
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="inputGroup w-100">
+            <input
+              type="date"
+              placeholder="Select Birth Date"
+              id="birthDate"
+              name="birthDate"
+              formControlName="birthDate"
+              value="{{ birthDate | date : 'yyyy-MM-dd' }}"
+              autocomplete="off"
+              min="1963-01-01"
+              max="2003-01-01"
+            />
+            <label for="birthDate">Birth Date</label>
+            <ng-container
+              *ngIf="
+                editForm.get('birthDate')?.invalid &&
+                editForm.get('birthDate')?.touched
+              "
+            >
+              <div
+                *ngIf="editForm.get('birthDate')?.errors?.['required']"
+                class="form-text text-danger"
+              >
+                Birth Date is required
+              </div>
+              <div
+                *ngIf="editForm.get('birthDate')?.errors?.['validateDateRange']"
+                class="form-text text-danger"
+              >
+                Age Must be Between 20 to 60 Years Old
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="inputGroup w-100">
+            <input
+              type="email"
+              placeholder="Enter Email Address"
+              id="email"
+              name="email"
+              formControlName="email"
+              autocomplete="off"
+            />
+            <label for="email">E-Mail</label>
+            <ng-container
+              *ngIf="
+                editForm.get('email')?.invalid && editForm.get('email')?.touched
+              "
+            >
+              <div
+                *ngIf="editForm.get('email')?.errors?.['required']"
+                class="form-text text-danger"
+              >
+                Email is required
+              </div>
+              <div
+                *ngIf="editForm.get('email')?.errors?.['email']"
+                class="form-text text-danger"
+              >
+                Enter Valid Email Address
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="inputGroup w-100">
+            <input
+              type="text"
+              placeholder="Enter Phone Number"
+              id="phone"
+              name="phone"
+              formControlName="phone"
+              autocomplete="off"
+            />
+            <label for="phone">Phone</label>
+            <ng-container
+              *ngIf="
+                editForm.get('phone')?.invalid && editForm.get('phone')?.touched
+              "
+            >
+              <div
+                *ngIf="editForm.get('phone')?.errors?.['required']"
+                class="form-text text-danger"
+              >
+                Phone is required
+              </div>
+              <div
+                *ngIf="editForm.get('phone')?.errors?.['pattern']"
+                class="form-text text-danger"
+              >
+                Enter Valid Phone Number
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="inputGroup w-100">
+            <input
+              type="text"
+              placeholder="Enter Your Address"
+              id="address"
+              name="address"
+              formControlName="address"
+              autocomplete="off"
+            />
+            <label for="address">Address</label>
+            <ng-container
+              *ngIf="
+                editForm.get('address')?.invalid &&
+                editForm.get('address')?.touched
+              "
+            >
+              <div
+                *ngIf="editForm.get('address')?.errors?.['required']"
+                class="form-text text-danger"
+              >
+                Address is required
+              </div>
+              <div
+                *ngIf="editForm.get('address')?.errors?.['minlength']"
+                class="form-text text-danger"
+              >
+                Address Must be more than 3 Characters
+              </div>
+              <div
+                *ngIf="editForm.get('address')?.errors?.['maxlength']"
+                class="form-text text-danger"
+              >
+                Address Must be less than 30 Characters
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="inputGroup w-100">
+            <input
+              type="text"
+              placeholder="Enter Your City"
+              id="city"
+              name="city"
+              formControlName="city"
+              autocomplete="off"
+            />
+            <label for="city">City</label>
+            <ng-container
+              *ngIf="
+                editForm.get('city')?.invalid && editForm.get('city')?.touched
+              "
+            >
+              <div
+                *ngIf="editForm.get('city')?.errors?.['required']"
+                class="form-text text-danger"
+              >
+                City is required
+              </div>
+              <div
+                *ngIf="editForm.get('city')?.errors?.['pattern']"
+                class="form-text text-danger"
+              >
+                Enter Valid City Name
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="inputGroup w-100">
+            <input
+              type="text"
+              placeholder="Enter Your Country"
+              id="country"
+              name="country"
+              formControlName="country"
+              autocomplete="off"
+            />
+            <label for="country">Country</label>
+            <ng-container
+              *ngIf="
+                editForm.get('country')?.invalid &&
+                editForm.get('country')?.touched
+              "
+            >
+              <div
+                *ngIf="editForm.get('country')?.errors?.['required']"
+                class="form-text text-danger"
+              >
+                Country is required
+              </div>
+              <div
+                *ngIf="editForm.get('country')?.errors?.['pattern']"
+                class="form-text text-danger"
+              >
+                Enter Valid Country Name
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="inputGroup w-100">
+            <input
+              type="number"
+              min="0"
+              placeholder="Enter Your Postal Code"
+              id="postal"
+              name="postal"
+              formControlName="postal"
+              autocomplete="off"
+            />
+            <label for="postal">Postal</label>
+            <ng-container
+              *ngIf="
+                editForm.get('postal')?.invalid &&
+                editForm.get('postal')?.touched
+              "
+            >
+              <div
+                *ngIf="editForm.get('postal')?.errors?.['required']"
+                class="form-text text-danger"
+              >
+                Postal is required
+              </div>
+              <div
+                *ngIf="editForm.get('postal')?.errors?.['pattern']"
+                class="form-text text-danger"
+              >
+                Enter Valid Postal Code
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div
+            class="toogle d-flex justify-content-evenly align-items-center gap-3 flex-wrap"
+          >
+            <div class="forGender">
+              <label for="gender" class="fw-bold gLabel">Gender</label>
+              <div class="radio-container">
+                <div class="pane">
+                  <label class="label-radio fs-6">
+                    <span>Male <i class="fa-solid fa-mars ms-2"></i></span>
+                    <input
+                      id="left"
+                      class="input-radio"
+                      name="gender"
+                      type="radio"
+                      formControlName="gender"
+                      [checked]="gender == 1"
+                      value="1"
+                    />
+                  </label>
+                  <label class="label-radio ms-3 fs-6">
+                    <span>Female <i class="fa-solid fa-venus ms-2"></i></span>
+
+                    <input
+                      id="middle"
+                      class="input-radio"
+                      name="gender"
+                      type="radio"
+                      formControlName="gender"
+                      [checked]="gender == 2"
+                      value="2"
+                    />
+                  </label>
+                </div>
+              </div>
+              <ng-container
+                *ngIf="
+                  editForm.get('gender')?.invalid &&
+                  editForm.get('gender')?.touched
+                "
+              >
+                <div
+                  *ngIf="editForm.get('gender')?.errors?.['required']"
+                  class="form-text text-danger"
+                >
+                  Gender is required
+                </div>
+              </ng-container>
+            </div>
+            <div class="forActive">
+              <label for="active" class="fw-bold gLabel">Active</label>
+
+              <div class="radio-container">
+                <div class="pane">
+                  <label class="label-radio fs-6">
+                    <span>Yes</span>
+                    <input
+                      id="left"
+                      class="input-radio"
+                      name="active"
+                      type="radio"
+                      formControlName="active"
+                      [checked]="active == 1"
+                      value="1"
+                    />
+                  </label>
+                  <label class="label-radio ms-3 fs-6">
+                    <span>No</span>
+
+                    <input
+                      id="middle"
+                      class="input-radio"
+                      name="active"
+                      type="radio"
+                      formControlName="active"
+                      [checked]="active == 0"
+                      value="0"
+                    />
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="butn" (click)="confirmSave(saveModel)">Submit</button>
+    <button class="butn" (click)="confirmCancel(closeModal)">Cancel</button>
+  </div>
+</ng-template>
+
+<ng-template #saveModel let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confirmation Message!</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="d('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure you want to submit this data?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="butn" (click)="c('Save click')">Save</button>
+    <button type="button" class="butn" (click)="cancel()">Cancel</button>
+
+  </div>
+</ng-template>
+
+<ng-template #closeModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confirmation Message!</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="d('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure you want to Cancel and leave this page?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="butn" (click)="c('Save click')">
+      Leave
+    </button>
+    <button type="button" class="butn" (click)="cancel()">Cancel</button>
+
+  </div>
+</ng-template>

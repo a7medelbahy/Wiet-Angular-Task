@@ -1,0 +1,429 @@
+<!-- <app-page-header headerTitle="New Employee"></app-page-header> -->
+
+<div class="section-padding new-employee">
+  <div class="container">
+    <form [formGroup]="newEmployee" (submit)="submitForm($event)">
+      <div class="row my-5 align-items-start justify-content-center gy-5">
+        <div class="col-md-6">
+          <div class="inputGroup w-100">
+            <input
+              type="text"
+              id="fName"
+              placeholder="Enter First Name"
+              name="fName"
+              formControlName="fName"
+              autocomplete="off"
+            />
+            <label for="fName">First Name</label>
+            <ng-container
+              *ngIf="
+                newEmployee.get('fName')?.invalid &&
+                newEmployee.get('fName')?.touched
+              "
+            >
+              <div
+                *ngIf="newEmployee.get('fName')?.errors?.['required']"
+                class="form-text text-danger"
+              >
+                First Name is required
+              </div>
+              <div
+                *ngIf="newEmployee.get('fName')?.errors?.['pattern']"
+                class="form-text text-danger"
+              >
+                First Name Must Be Between 3 to 10 Characters
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="inputGroup w-100">
+            <input
+              type="text"
+              placeholder="Enter First Name"
+              id="lName"
+              name="lName"
+              formControlName="lName"
+              autocomplete="off"
+            />
+            <label for="lName">Last Name</label>
+            <ng-container
+              *ngIf="
+                newEmployee.get('lName')?.invalid &&
+                newEmployee.get('lName')?.touched
+              "
+            >
+              <div
+                *ngIf="newEmployee.get('lName')?.errors?.['required']"
+                class="form-text text-danger"
+              >
+                Last Name is required
+              </div>
+              <div
+                *ngIf="newEmployee.get('lName')?.errors?.['pattern']"
+                class="form-text text-danger"
+              >
+                Last Name Must Be Between 3 to 10 Characters
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="inputGroup w-100">
+            <input
+              type="date"
+              placeholder="Select Birth Date"
+              id="birthDate"
+              name="birthDate"
+              formControlName="birthDate"
+              autocomplete="off"
+              min="1963-01-01"
+              max="2003-01-01"
+            />
+            <label for="birthDate">Birth Date</label>
+            <ng-container
+              *ngIf="
+                newEmployee.get('birthDate')?.invalid &&
+                newEmployee.get('birthDate')?.touched
+              "
+            >
+              <div
+                *ngIf="newEmployee.get('birthDate')?.errors?.['required']"
+                class="form-text text-danger"
+              >
+                Birth Date is required
+              </div>
+              <div
+                *ngIf="newEmployee.get('birthDate')?.errors?.['validateDateRange']"
+                class="form-text text-danger"
+              >
+                Age Must be Between 20 to 60 Years Old
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="inputGroup w-100">
+            <input
+              type="email"
+              placeholder="Enter Email Address"
+              id="email"
+              name="email"
+              formControlName="email"
+              autocomplete="off"
+            />
+            <label for="email">E-Mail</label>
+            <ng-container
+              *ngIf="
+                newEmployee.get('email')?.invalid &&
+                newEmployee.get('email')?.touched
+              "
+            >
+              <div
+                *ngIf="newEmployee.get('email')?.errors?.['required']"
+                class="form-text text-danger"
+              >
+                Email is required
+              </div>
+              <div
+                *ngIf="newEmployee.get('email')?.errors?.['email']"
+                class="form-text text-danger"
+              >
+                Enter Valid Email Address
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="inputGroup w-100">
+            <input
+              type="text"
+              placeholder="Enter Phone Number"
+              id="phone"
+              name="phone"
+              formControlName="phone"
+              autocomplete="off"
+            />
+            <label for="phone">Phone</label>
+            <ng-container
+              *ngIf="
+                newEmployee.get('phone')?.invalid &&
+                newEmployee.get('phone')?.touched
+              "
+            >
+              <div
+                *ngIf="newEmployee.get('phone')?.errors?.['required']"
+                class="form-text text-danger"
+              >
+                Phone is required
+              </div>
+              <div
+                *ngIf="newEmployee.get('phone')?.errors?.['pattern']"
+                class="form-text text-danger"
+              >
+                Enter Valid Phone Number
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="inputGroup w-100">
+            <input
+              type="text"
+              placeholder="Enter Your Address"
+              id="address"
+              name="address"
+              formControlName="address"
+              autocomplete="off"
+            />
+            <label for="address">Address</label>
+            <ng-container
+              *ngIf="
+                newEmployee.get('address')?.invalid &&
+                newEmployee.get('address')?.touched
+              "
+            >
+              <div
+                *ngIf="newEmployee.get('address')?.errors?.['required']"
+                class="form-text text-danger"
+              >
+                Address is required
+              </div>
+              <div
+                *ngIf="newEmployee.get('address')?.errors?.['minlength']"
+                class="form-text text-danger"
+              >
+                Address Must be more than 3 Characters
+              </div>
+              <div
+                *ngIf="newEmployee.get('address')?.errors?.['maxlength']"
+                class="form-text text-danger"
+              >
+                Address Must be less than 30 Characters
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="inputGroup w-100">
+            <input
+              type="text"
+              placeholder="Enter Your City"
+              id="city"
+              name="city"
+              formControlName="city"
+              autocomplete="off"
+            />
+            <label for="city">City</label>
+            <ng-container
+              *ngIf="
+                newEmployee.get('city')?.invalid &&
+                newEmployee.get('city')?.touched
+              "
+            >
+              <div
+                *ngIf="newEmployee.get('city')?.errors?.['required']"
+                class="form-text text-danger"
+              >
+                City is required
+              </div>
+              <div
+                *ngIf="newEmployee.get('city')?.errors?.['pattern']"
+                class="form-text text-danger"
+              >
+                Enter Valid City Name
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="inputGroup w-100">
+            <input
+              type="text"
+              placeholder="Enter Your Country"
+              id="country"
+              name="country"
+              formControlName="country"
+              autocomplete="off"
+            />
+            <label for="country">Country</label>
+            <ng-container
+              *ngIf="
+                newEmployee.get('country')?.invalid &&
+                newEmployee.get('country')?.touched
+              "
+            >
+              <div
+                *ngIf="newEmployee.get('country')?.errors?.['required']"
+                class="form-text text-danger"
+              >
+                Country is required
+              </div>
+              <div
+                *ngIf="newEmployee.get('country')?.errors?.['pattern']"
+                class="form-text text-danger"
+              >
+                Enter Valid Country Name
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="inputGroup w-100">
+            <input
+              type="number"
+              min="0"
+              placeholder="Enter Your Postal Code"
+              id="postal"
+              name="postal"
+              formControlName="postal"
+              autocomplete="off"
+            />
+            <label for="postal">Postal</label>
+            <ng-container
+              *ngIf="
+                newEmployee.get('postal')?.invalid &&
+                newEmployee.get('postal')?.touched
+              "
+            >
+              <div
+                *ngIf="newEmployee.get('postal')?.errors?.['required']"
+                class="form-text text-danger"
+              >
+                Postal is required
+              </div>
+              <div
+                *ngIf="newEmployee.get('postal')?.errors?.['pattern']"
+                class="form-text text-danger"
+              >
+                Enter Valid Postal Code
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div
+            class="toogle d-flex justify-content-evenly align-items-center gap-3 flex-wrap"
+          >
+            <div class="forGender">
+              <label for="gender" class="fw-bold gLabel">Gender</label>
+              <div class="radio-container">
+                <div class="pane">
+                  <label class="label-radio fs-6">
+                    <span>Male <i class="fa-solid fa-mars ms-2"></i></span>
+                    <input
+                      id="left"
+                      class="input-radio"
+                      name="gender"
+                      type="radio"
+                      formControlName="gender"
+                      value="1"
+                    />
+                  </label>
+                  <label class="label-radio ms-3 fs-6">
+                    <span>Female <i class="fa-solid fa-venus ms-2"></i></span>
+
+                    <input
+                      id="middle"
+                      class="input-radio"
+                      name="gender"
+                      type="radio"
+                      formControlName="gender"
+                      value="2"
+                    />
+                  </label>
+                </div>
+              </div>
+              <ng-container
+                *ngIf="
+                  newEmployee.get('gender')?.invalid &&
+                  newEmployee.get('gender')?.touched
+                "
+              >
+                <div
+                  *ngIf="newEmployee.get('gender')?.errors?.['required']"
+                  class="form-text text-danger"
+                >
+                  Gender is required
+                </div>
+              </ng-container>
+            </div>
+            <div class="forActive">
+              <label for="active" class="fw-bold gLabel">Active</label>
+
+              <div class="radio-container">
+                <div class="pane">
+                  <label class="label-radio fs-6">
+                    <span>Yes</span>
+                    <input
+                      id="left"
+                      class="input-radio"
+                      name="active"
+                      type="radio"
+                      formControlName="active"
+                      value="1"
+                    />
+                  </label>
+                  <label class="label-radio ms-3 fs-6">
+                    <span>No</span>
+
+                    <input
+                      id="middle"
+                      class="input-radio"
+                      name="active"
+                      type="radio"
+                      formControlName="active"
+                      value="0"
+                    />
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="d-flex justify-content-center align-items-center gap-3">
+      <button class="butn" (click)="confirmSave(saveModel)">Submit</button>
+      <button class="butn" (click)="confirmCancel(closeModal)">Cancel</button>
+    </div>
+  </div>
+</div>
+<ng-template #saveModel let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confirmation Message!</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="d('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure you want to submit this data?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="butn" (click)="c('Save click')">Save</button>
+  </div>
+</ng-template>
+
+<ng-template #closeModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confirmation Message!</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="d('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure you want to Cancel and leave this page?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="butn" (click)="c('Save click')">
+      Leave
+    </button>
+    <button type="button" class="butn" (click)="cancel()">Cancel</button>
+  </div>
+</ng-template>

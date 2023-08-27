@@ -1,0 +1,21 @@
+.navbar {
+  background-color: var(--primary-color);
+  font-weight: bold;
+}
+
+.navbar .nav-link {
+  color: rgba(255, 255, 255, 0.5);
+}
+.navbar .nav-link.active,
+.navbar .nav-link:hover {
+  color: white;
+}
+.navbar .navbar-toggler {
+  border-color: white;
+}
+.navbar .navbar-toggler:focus {
+  box-shadow: 0px 0px 3px 1px white;
+}
+.navbar .navbar-toggler i {
+  color: white;
+}

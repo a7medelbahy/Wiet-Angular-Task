@@ -1,0 +1,57 @@
+<nav class="navbar navbar-expand-lg bg-dark">
+  <div class="container">
+    <a
+      class="navbar-brand"
+      routerLink="dashboard"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      ><img
+        src="assets/images/logo.webp"
+        class="img-fluid w-75"
+        alt="logo"
+        title="WIET Logo"
+    /></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="fa-solid fa-bars fs-4"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="dashboard"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Dashboard</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="new"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >New Employee</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="employees"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Our Employees</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

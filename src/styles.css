@@ -1,1 +1,119 @@
-/* You can add global styles to this file, and also import other style files */
+/* Font */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,500;0,700;0,900;1,100&display=swap");
+
+/* Globale Style Rules */
+:root {
+  --main-padding: 80px;
+  --main-transition: all 0.5s;
+  --overlay-black: rgba(0, 0, 0, 0.5);
+  --primary-color:rgb(89,89,89);
+  --main-yellow: #febe42;
+  --main-black: #181818;
+  --section-background: #f6f6f6;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  border: none;
+  outline: none;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  width: 100%;
+  overflow-x: hidden;
+  line-height: 1.7;
+  font-family: "Poppins", sans-serif;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+}
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+img {
+  object-fit: cover;
+}
+.section-padding {
+  padding-top: var(--main-padding);
+  padding-bottom: var(--main-padding);
+}
+
+.butn {
+
+  padding: 0.8em 1.75em;
+  background-color: transparent;
+  border-radius: 6px;
+  border: .3px solid var(--primary-color);
+  transition: .5s;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 1;
+  font-weight: bold;
+  font-size: 17px;
+  text-transform: uppercase;
+  color: var(--primary-color);
+ }
+ 
+ .butn::after, .butn::before {
+  content: '';
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform: skew(90deg) translate(-50%, -50%);
+  position: absolute;
+  inset: 50%;
+  left: 25%;
+  z-index: -1;
+  transition: .5s ease-out;
+  background-color: var(--primary-color);
+ }
+ 
+ .butn::before {
+  top: -50%;
+  left: -25%;
+  transform: skew(90deg) rotate(180deg) translate(-50%, -50%);
+ }
+ 
+ .butn:hover::before {
+  transform: skew(45deg) rotate(180deg) translate(-50%, -50%);
+ }
+ 
+ .butn:hover::after {
+  transform: skew(45deg) translate(-50%, -50%);
+ }
+ 
+ .butn:hover {
+  color: white;
+ }
+ 
+ .butn:active {
+  filter: brightness(.7);
+  transform: scale(.98);
+ }
+
+ .ngx-pagination .current {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+  font-weight: bolder;
+  border-radius: 10px;
+}
